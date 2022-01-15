@@ -4,9 +4,11 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import MobileNavigation from "./MobileNav";
 import { useState } from "react";
+import Cookies from "universal-cookie";
 
 const clientId =
   "12442857673-tpt89aun3q39us85u5g8rlr5gj451q5g.apps.googleusercontent.com";
+const cookies = new Cookies();
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +24,7 @@ const NavBar = () => {
   );
   const logout = () => {
     // destroy the cookie
-
+    cookies.remove("googleProfile");
     // redirect user to the landing page
     window.location.href = "/login";
   };
