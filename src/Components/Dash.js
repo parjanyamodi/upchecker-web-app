@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "universal-cookie";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from "recharts";
 import { Chart } from "react-google-charts";
 
 import NavBar from "./PostLoginNavBar/NavBar";
 
 const cookies = new Cookies();
-
-const clientId =
-  "12442857673-tpt89aun3q39us85u5g8rlr5gj451q5g.apps.googleusercontent.com";
 
 const Dash = () => {
   const [URL, setURL] = useState("");
@@ -116,11 +105,16 @@ const Dash = () => {
                 }}
                 id="URL"
                 className="form-control mt-2"
+                placeholder="Example:- parjanyamodi.com or parjanyamodi.com/contact"
                 autoComplete="off"
                 required
               />
               <div className="form-text">
-                Please don't add http or https in the link.
+                Please don't add http or https in the URL.
+              </div>
+              <div className="form-text">
+                We scan all website using https secured protocol only. If your
+                site uses only http then we might not be able scan your site.
               </div>
               <button type="submit" className="btn btn-danger mt-3">
                 Submit
@@ -135,65 +129,75 @@ const Dash = () => {
             </div>
           </div>
         </div>
+        <hr />
         <div className="row">
-          <>
-            {urlList.length !== 0 ? (
-              urlList.map((val) => {
-                const options = {
-                  hAxis: {
-                    title: "Date & Time",
-                    textPosition: "none",
-                  },
-                  vAxis: {
-                    minValue: 0,
-                    maxValue: 10,
-                    title: "Duration (sec)",
-                    scaleType: "linear",
-                    gridlines: { count: 10 },
-                  },
-                  curveType: "function",
-                  series: [{ color: "#0B6EFD" }],
-                  legend: "none",
-                  pointSize: 4,
-                  crosshair: { trigger: "both", color: "#121212" },
-                };
-                var data = [["Time", "Total Time taken to load website"]];
-                console.log(urlStats[val.url]);
-                urlStats[val.url]
-                  ? urlStats[val.url].map((element) => {
-                      data.push([
-                        element.time_stamp.slice(0, -31),
-                        Number(element.task_duration) * 10,
-                      ]);
-                    })
-                  : data.push(["", 0]);
-                return (
-                  <div className="col-12 text-start mt-3">
-                    <h2 className="text-primary">
-                      <strong>{val.url}</strong>
-                    </h2>
-                    <span className="text-muted">
-                      The graph may take a while to load.
-                    </span>
-                    <Chart
-                      chartType="LineChart"
-                      width="100%"
-                      height="80vh"
-                      data={data}
-                      options={options}
-                    />
-                    <hr />
-                  </div>
-                );
-              })
-            ) : (
-              <div className="col-12 text-start mt-3">
-                <h2 className="text-primary">
-                  <strong>No URLs detected.</strong>
-                </h2>
-              </div>
-            )}
-          </>
+          <div className="col-12 text-start mt-5 mb-5">
+            <h2 className="text-danger mb-2">
+              <strong>URL Statistics</strong>
+            </h2>
+          </div>
+          {urlList.length !== 0 ? (
+            urlList.map((val) => {
+              const options = {
+                hAxis: {
+                  title: "Date & Time",
+                  textPosition: "none",
+                },
+                vAxis: {
+                  minValue: 0,
+                  maxValue: 5,
+                  title: "Duration (sec)",
+                  scaleType: "linear",
+                },
+                curveType: "function",
+                series: [{ color: "#0B6EFD" }],
+                legend: "none",
+                pointSize: 4,
+                crosshair: { trigger: "both", color: "#121212" },
+              };
+              var data = [["Time", "Total Time taken to load website"]];
+              console.log(urlStats[val.url]);
+              urlStats[val.url]
+                ? urlStats[val.url].map((element) => {
+                    data.push([
+                      element.time_stamp.slice(0, -31),
+                      Number(element.task_duration) * 10,
+                    ]);
+                  })
+                : data.push(["", 0]);
+              return (
+                <div className="col-12 text-start mt-3 mb-4">
+                  <h3 className="text-primary">
+                    <strong>
+                      &#8226;{" "}
+                      <a
+                        href={"https://" + val.url}
+                        className="text-decoration-none"
+                      >
+                        {val.url}
+                      </a>
+                    </strong>
+                  </h3>
+                  <span className="text-muted">
+                    The graph may take a while to load.
+                  </span>
+                  <Chart
+                    chartType="LineChart"
+                    width="100%"
+                    height="80vh"
+                    data={data}
+                    options={options}
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <div className="col-12 text-start mt-3">
+              <h2 className="text-primary">
+                <strong>No URLs detected.</strong>
+              </h2>
+            </div>
+          )}
         </div>
       </div>
     </>
