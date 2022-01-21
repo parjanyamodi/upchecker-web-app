@@ -35,7 +35,9 @@ const Dash = () => {
       alert("Remove http:// protocol from URL!");
       setIInvalidCSS("visible");
     } else {
-      fetch(`http://localhost:4500/addurl/${googleProfile.googleId}/${URL}`)
+      fetch(
+        `https://upchecker-apis.parjanyamodi.com/addurl/${googleProfile.googleId}/${URL}`
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -45,14 +47,18 @@ const Dash = () => {
     }
   };
   useEffect(() => {
-    fetch(`http://localhost:4500/urllist/${googleProfile.googleId}`)
+    fetch(
+      `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.urllist);
         setUList(data.urllist);
         data.urllist.length !== 0
           ? data.urllist.map((val) => {
-              fetch(`http://localhost:4500/urlstats/${val.url_id}`)
+              fetch(
+                `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
+              )
                 .then((res) => res.json())
                 .then((d) => {
                   uStats[val.url] = d.scans;
@@ -62,14 +68,18 @@ const Dash = () => {
           : console.log("No URLs for stats");
       });
     setInterval(() => {
-      fetch(`http://localhost:4500/urllist/${googleProfile.googleId}`)
+      fetch(
+        `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log(data.urllist);
           setUList(data.urllist);
           data.urllist.length !== 0
             ? data.urllist.map((val) => {
-                fetch(`http://localhost:4500/urlstats/${val.url_id}`)
+                fetch(
+                  `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
+                )
                   .then((res) => res.json())
                   .then((d) => {
                     uStats[val.url] = d.scans;
