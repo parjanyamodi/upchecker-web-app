@@ -145,6 +145,9 @@ const Dash = () => {
             <h2 className="text-danger mb-2">
               <strong>URL Statistics</strong>
             </h2>
+            <span className="text-muted">
+              Websites are scaned every 15 minutes.
+            </span>
           </div>
           {urlList.length !== 0 ? (
             urlList.map((val) => {
