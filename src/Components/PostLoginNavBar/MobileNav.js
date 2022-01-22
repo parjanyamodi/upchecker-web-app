@@ -27,7 +27,30 @@ const MobileNavigation = (props) => {
     </MobileNav>
   );
 };
-
+const Button = styled.button`
+  width: 150px;
+  height: 50px;
+  margin-left: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: #d50704;
+  color: #ffffff;
+  text-decoration: none;
+  span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  &:hover {
+    background-color: #121212;
+    span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  }
+`;
 const MobileNav = styled.nav`
   @media (min-width: 992px) {
     display: none;
