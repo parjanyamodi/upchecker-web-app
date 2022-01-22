@@ -1,14 +1,23 @@
 import styled from "styled-components";
 
 const MobileNavigation = (props) => {
+  const logout = () => {
+    // destroy the cookie
+    cookies.remove("googleProfile");
+    // redirect user to the landing page
+    window.location.href = "/login";
+  };
   return (
     <MobileNav>
-      <a href="/">
-        <span> Home </span>
-      </a>
-      <a href="/login">
-        <span> Login </span>
-      </a>
+      <GoogleLogout
+        clientId={clientId}
+        render={(renderProps) => (
+          <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+            <span>Logout</span>
+          </Button>
+        )}
+        onLogoutSuccess={logout}
+      ></GoogleLogout>
     </MobileNav>
   );
 };
