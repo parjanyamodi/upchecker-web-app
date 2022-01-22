@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { GoogleLogout } from "react-google-login";
+import Cookies from "universal-cookie";
+
+const clientId =
+  "12442857673-tpt89aun3q39us85u5g8rlr5gj451q5g.apps.googleusercontent.com";
+const cookies = new Cookies();
 
 const MobileNavigation = (props) => {
   const logout = () => {
