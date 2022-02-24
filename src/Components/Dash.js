@@ -47,6 +47,7 @@ const Dash = () => {
     }
   };
   useEffect(() => {
+    /* Initial fetching of the url list */
     fetch(
       `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
     )
@@ -56,6 +57,7 @@ const Dash = () => {
         setUList(data.urllist);
         data.urllist.length !== 0
           ? data.urllist.map((val) => {
+              /* Initial fetching of data for each url present in Initial url list*/
               fetch(
                 `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
               )
@@ -67,7 +69,9 @@ const Dash = () => {
             })
           : console.log("No URLs for stats");
       });
+    /* Recursive fetch */
     setInterval(() => {
+      /* Recursive fetching of the url list */
       fetch(
         `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
       )
@@ -77,6 +81,7 @@ const Dash = () => {
           setUList(data.urllist);
           data.urllist.length !== 0
             ? data.urllist.map((val) => {
+                /* Recursive fetching of data for each url present in Updated url list*/
                 fetch(
                   `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
                 )
