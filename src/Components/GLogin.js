@@ -9,7 +9,7 @@ import NavBar from "./PreLoginNavBar/NavBar";
 const cookies = new Cookies();
 
 const clientId =
-  "12442857673-tpt89aun3q39us85u5g8rlr5gj451q5g.apps.googleusercontent.com";
+  "12442857673-bo0253n62t5hcgls0te7un9q8c45cmst.apps.googleusercontent.com";
 const Login = () => {
   const [googleProfile, setGProfile] = useState({});
   const onSuccess = (res) => {

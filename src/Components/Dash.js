@@ -45,7 +45,7 @@ const Dash = () => {
     }
   };
   useEffect(() => {
-    /* Initial fetching of the url list */
+    /* Fetching of the url list */
     fetch(`http://localhost:3405/urllist/${googleProfile.googleId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -53,7 +53,7 @@ const Dash = () => {
         setUList(data.urllist);
         data.urllist.length !== 0
           ? data.urllist.map((val) => {
-              /* Initial fetching of data for each url present in Initial url list*/
+              /* Fetching of data for each url present in url list*/
               fetch(`http://localhost:3405/urlstats/${val.url_id}`)
                 .then((res) => res.json())
                 .then((d) => {
@@ -63,27 +63,6 @@ const Dash = () => {
             })
           : console.log("No URLs for stats");
       });
-    /* Recursive fetch */
-    setInterval(() => {
-      /* Recursive fetching of the url list */
-      fetch(`http://localhost:3405/urllist/${googleProfile.googleId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.urllist);
-          setUList(data.urllist);
-          data.urllist.length !== 0
-            ? data.urllist.map((val) => {
-                /* Recursive fetching of data for each url present in Updated url list*/
-                fetch(`http://localhost:3405/urlstats/${val.url_id}`)
-                  .then((res) => res.json())
-                  .then((d) => {
-                    uStats[val.url] = d.scans;
-                    setUStats(uStats);
-                  });
-              })
-            : console.log("No URLs for stats");
-        });
-    }, 100000);
   }, []);
 
   return googleProfile ? (
@@ -163,7 +142,7 @@ const Dash = () => {
                 pointSize: 4,
                 crosshair: { trigger: "both", color: "#121212" },
               };
-              var data = [["Time", "Total Time taken to load website"]];
+              var data = [["Time ", "Loading Time (sec)"]];
               console.log(urlStats[val.url]);
               urlStats[val.url]
                 ? urlStats[val.url].map((element) => {
