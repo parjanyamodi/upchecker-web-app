@@ -35,9 +35,7 @@ const Dash = () => {
       alert("Remove http:// protocol from URL!");
       setIInvalidCSS("visible");
     } else {
-      fetch(
-        `https://upchecker-apis.parjanyamodi.com/addurl/${googleProfile.googleId}/${URL}`
-      )
+      fetch(`http://localhost:3405/addurl/${googleProfile.googleId}/${URL}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -48,9 +46,7 @@ const Dash = () => {
   };
   useEffect(() => {
     /* Initial fetching of the url list */
-    fetch(
-      `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
-    )
+    fetch(`http://localhost:3405/urllist/${googleProfile.googleId}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.urllist);
@@ -58,9 +54,7 @@ const Dash = () => {
         data.urllist.length !== 0
           ? data.urllist.map((val) => {
               /* Initial fetching of data for each url present in Initial url list*/
-              fetch(
-                `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
-              )
+              fetch(`http://localhost:3405/urlstats/${val.url_id}`)
                 .then((res) => res.json())
                 .then((d) => {
                   uStats[val.url] = d.scans;
@@ -72,9 +66,7 @@ const Dash = () => {
     /* Recursive fetch */
     setInterval(() => {
       /* Recursive fetching of the url list */
-      fetch(
-        `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
-      )
+      fetch(`http://localhost:3405/urllist/${googleProfile.googleId}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data.urllist);
@@ -82,9 +74,7 @@ const Dash = () => {
           data.urllist.length !== 0
             ? data.urllist.map((val) => {
                 /* Recursive fetching of data for each url present in Updated url list*/
-                fetch(
-                  `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
-                )
+                fetch(`http://localhost:3405/urlstats/${val.url_id}`)
                   .then((res) => res.json())
                   .then((d) => {
                     uStats[val.url] = d.scans;
