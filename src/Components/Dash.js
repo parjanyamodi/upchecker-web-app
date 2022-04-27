@@ -35,7 +35,9 @@ const Dash = () => {
       alert("Remove http:// protocol from URL!");
       setIInvalidCSS("visible");
     } else {
-      fetch(`http://localhost:3405/addurl/${googleProfile.googleId}/${URL}`)
+      fetch(
+        `https://upchecker-apis.parjanyamodi.com/addurl/${googleProfile.googleId}/${URL}`
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -46,7 +48,9 @@ const Dash = () => {
   };
   useEffect(() => {
     /* Fetching of the url list */
-    fetch(`http://localhost:3405/urllist/${googleProfile.googleId}`)
+    fetch(
+      `https://upchecker-apis.parjanyamodi.com/urllist/${googleProfile.googleId}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.urllist);
@@ -54,7 +58,9 @@ const Dash = () => {
         data.urllist.length !== 0
           ? data.urllist.map((val) => {
               /* Fetching of data for each url present in url list*/
-              fetch(`http://localhost:3405/urlstats/${val.url_id}`)
+              fetch(
+                `https://upchecker-apis.parjanyamodi.com/urlstats/${val.url_id}`
+              )
                 .then((res) => res.json())
                 .then((d) => {
                   uStats[val.url] = d.scans;

@@ -16,7 +16,7 @@ const Login = () => {
     console.log("[Login Success] currentUser:", res.profileObj);
     setGProfile(res.profileObj);
     fetch(
-      `http://localhost:3405/login/${res.profileObj.googleId}/${res.profileObj.email}/${res.profileObj.name}`
+      `https://upchecker-apis.parjanyamodi.com/login/${res.profileObj.googleId}/${res.profileObj.email}/${res.profileObj.name}`
     )
       .then((response) => response.json())
       .then((data) => {
